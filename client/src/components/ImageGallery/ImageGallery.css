@@ -21,3 +21,10 @@
 .image figcaption {
   font-size: 0.9rem;
 }
+
+.image-tags {
+  margin: 0.4rem 0 0 0;
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+}

@@ -16,6 +16,7 @@ const UploadForm = ({ fetchImages }) => {
     // Getting values from the text fields inputs
     formData.append('imageTitle', e.target.imageTitle.value);
     formData.append('imageDescription', e.target.imageDescription.value);
+    formData.append('imageTags', e.target.imageTags.value);
 
     // Getting a value from the file input
     formData.append('imageFile', e.target.imageFile.files[0]);
@@ -64,6 +65,17 @@ const UploadForm = ({ fetchImages }) => {
             Image Description
           </label>
           <textarea name="imageDescription" required></textarea>
+        </div>
+        <div className="input-element">
+          <label className="input-element__label">
+            Tags <span style={{ fontWeight: 'normal', fontSize: '0.85em' }}>(comma-separated)</span>
+          </label>
+          <input
+            className="input-element__field"
+            name="imageTags"
+            type="text"
+            placeholder="e.g. portrait, outdoor"
+          />
         </div>
         <div className="input-element">
           <label className="input-element__label">

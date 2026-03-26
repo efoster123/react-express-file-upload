@@ -42,6 +42,7 @@ app.post('/upload-image', upload.single('imageFile'), (req, res) => {
     id: uuid(),
     title: req.body.imageTitle,
     description: req.body.imageDescription,
+    tags: [...new Set((req.body.imageTags || '').split(',').map(t => t.trim().toLowerCase()).filter(Boolean))],
     src: `images/${req.file.filename}`
   };
 

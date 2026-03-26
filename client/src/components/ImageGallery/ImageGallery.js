@@ -13,6 +13,9 @@ const ImageGallery = ({ images }) => {
             />
             <h3>{image.title}</h3>
             <figcaption>{image.description}</figcaption>
+            {image.tags?.length > 0 && (
+              <p className="image-tags">{image.tags.join(', ')}</p>
+            )}
           </figure>
         )
       })}
