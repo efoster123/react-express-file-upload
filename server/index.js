@@ -32,6 +32,12 @@ const upload = multer({ storage });
 // File upload endpoint, using multer instance .single method as a middleware to upload the file.
 // The parameter ('imageFile') needs to match the value of the name attribute of the file input on front-end
 app.post('/upload-image', upload.single('imageFile'), (req, res) => {
+  const title = (req.body.imageTitle || '').trim();
+  const description = (req.body.imageDescription || '').trim();
+  if (!title || !description || !req.file) {
+    return res.status(400).json({ error: 'Title, description, and image file are required.' });
+  }
+
   // Read images JSON file
   const images = readImagesFile();
 
@@ -40,8 +46,8 @@ app.post('/upload-image', upload.single('imageFile'), (req, res) => {
   // File object is available under req.file (or req.files if using upload.array)
   const newImage = {
     id: uuid(),
-    title: req.body.imageTitle,
-    description: req.body.imageDescription,
+    title,
+    description,
     tags: [...new Set((req.body.imageTags || '').split(',').map(t => t.trim().toLowerCase()).filter(Boolean))],
     src: `images/${req.file.filename}`
   };

@@ -17,3 +17,9 @@ textarea {
 .input-element__label {
   margin-bottom: 0.25rem;
 }
+
+.upload-form__error {
+  margin: 0 0 1rem 0;
+  color: #b00020;
+  font-size: 0.9rem;
+}

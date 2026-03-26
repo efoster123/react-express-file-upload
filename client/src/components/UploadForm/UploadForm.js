@@ -5,10 +5,12 @@ import './UploadForm.css';
 const UploadForm = ({ fetchImages }) => {
   // State for keeping track of upload happening, helpful for disabling the button when submitting the form
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
 
   const handleSubmit = (e) => {
     // Prevent page reload
     e.preventDefault();
+    setUploadError(null);
 
     // We need to gather all the data in FormData, not just a regular object
     const formData = new FormData();
@@ -34,7 +36,8 @@ const UploadForm = ({ fetchImages }) => {
       .then(() => {
         // Enable the upload button
         setIsUploading(false);
-        
+        setUploadError(null);
+
         // Refetch the images
         fetchImages();
 
@@ -43,6 +46,9 @@ const UploadForm = ({ fetchImages }) => {
       })
       .catch((err) => {
         console.log('Error:', err);
+        const message =
+          err.response?.data?.error || 'Upload failed. Please try again.';
+        setUploadError(message);
         setIsUploading(false);
       });
   }
@@ -88,6 +94,11 @@ const UploadForm = ({ fetchImages }) => {
             required
           />
         </div>
+        {uploadError && (
+          <p className="upload-form__error" role="alert">
+            {uploadError}
+          </p>
+        )}
         {/* The button is disabled while we're uploading */}
         <button disabled={isUploading}>
           Upload Image
